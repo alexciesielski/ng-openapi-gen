@@ -1,9 +1,9 @@
 {
-  "name": "ng-openapi-gen",
-  "version": "0.51.0",
+  "name": "@alexciesielski/ng-openapi-gen",
+  "version": "0.51.2",
   "license": "MIT",
-  "author": "Cyclos development team",
-  "description": "An OpenAPI 3 codegen for Angular 12+",
+  "author": "Alexander Ciesielski",
+  "description": "An OpenAPI 3 codegen for Angular 17+",
   "keywords": [
     "angular",
     "openapi",
@@ -13,7 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/cyclosproject/ng-openapi-gen.git"
   },
-  "private": true,
   "bin": {
     "ng-openapi-gen": "lib/index.js"
   },
@@ -21,10 +20,11 @@
   "scripts": {
     "test": "jasmine-ts --project=tsconfig.json --config=jasmine.json",
     "lint": "eslint 'lib/**'",
-    "compile": "tsc --project tsconfig.json && ncp \"LICENSE\" dist && ncp \"README.md\" \"dist/README.md\" && ncp \"templates\" \"dist/templates\" && ncp \"node_modules\" \"dist/node_modules\" && rimraf \"dist/test\" && replace-in-file \"\\\"private\\\": true\" \"\\\"private\\\": false\" dist/package.json",
+    "compile": "tsc --project tsconfig.json && ncp \"LICENSE\" dist && ncp \"README.md\" \"dist/README.md\" && ncp \"templates\" \"dist/templates\" && ncp \"node_modules\" \"dist/node_modules\" && rimraf \"dist/test\"",
     "build": "npm run lint && npm run compile && npm test",
     "test:watch": "nodemon --watch './**/*' --exec 'npm run test'",
-    "link": "npm run build && cd dist && npm link"
+    "link": "npm run build && cd dist && npm link",
+    "publish-lib": "npm run build && cd dist && npm publish --access public"
   },
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "~9.0.9",
@@ -38,8 +38,8 @@
     "typescript": "~5.0.4"
   },
   "peerDependencies": {
-    "@angular/core": ">=12.0.0",
-    "rxjs": ">=6.0.0"
+    "@angular/core": ">=17.0.0",
+    "rxjs": ">=7.0.0"
   },
   "devDependencies": {
     "@loopback/openapi-v3-types": "^1.2.1",
