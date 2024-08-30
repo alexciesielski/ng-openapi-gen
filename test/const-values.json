@@ -1,0 +1,102 @@
+{
+  "openapi": "3.0",
+  "info": {
+    "title": "Test with all types",
+    "version": "1.0"
+  },
+  "paths": {
+    "/foo": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalendarMonthly"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CalendarMonthly": {
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id",
+            "description": "ID",
+            "is_on_list": false
+          },
+          "frequency_type": {
+            "type": "string",
+            "enum": [
+              "monthly"
+            ],
+            "const": "monthly",
+            "title": "Miesiąc",
+            "description": "miesiąc",
+            "editable": false
+          },
+          "frequency": {
+            "type": "integer",
+            "minimum": 1,
+            "title": "Przypominaj co",
+            "description": "przypominaj co",
+            "editable": true
+          },
+          "monthly_reminder": {
+            "type": "string",
+            "enum": [
+              {
+                "const": "day",
+                "title": "Dzień miesiąca",
+                "type": "string"
+              },
+              {
+                "const": "week",
+                "title": "Dzień tygodnia",
+                "type": "string"
+              }
+            ],
+            "title": "Typ",
+            "description": "Typ",
+            "editable": true
+          },
+          "e_dtime": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "type": "datetime",
+            "title": "Data zamknięcia",
+            "description": "Data zamknięcia",
+            "editable": true
+          }
+        },
+        "type": "object",
+        "required": [
+          "frequency_type",
+          "frequency",
+          "monthly_reminder"
+        ],
+        "title": "CalendarMonthly"
+      }
+    }
+  }
+}

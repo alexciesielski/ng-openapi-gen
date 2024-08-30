@@ -1,10 +1,10 @@
+import { upperCase } from 'lodash';
 import { OpenAPIObject, SchemaObject } from 'openapi3-ts';
 import { EnumValue } from './enum-value';
 import { GenType } from './gen-type';
 import { fileName, tsComments, tsType, unqualifiedName } from './gen-utils';
 import { Options } from './options';
 import { Property } from './property';
-import { upperCase } from 'lodash';
 
 
 /**

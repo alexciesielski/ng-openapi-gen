@@ -251,6 +251,9 @@ function rawTsType(schema: SchemaObject, options: Options, openApi: OpenAPIObjec
     if (type === 'number' || type === 'integer' || type === 'boolean') {
       return enumValues.join(' | ');
     } else {
+      if (typeof enumValues[0] === 'object') {
+        return enumValues.map(v => `'${jsesc(v.const)}'`).join(' | ');
+      }
       return enumValues.map(v => `'${jsesc(v)}'`).join(' | ');
     }
   }

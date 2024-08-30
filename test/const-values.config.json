@@ -1,0 +1,7 @@
+{
+  "$schema": "../ng-openapi-gen-schema.json",
+  "input": "const-values.json",
+  "output": "out/const-values/",
+  "indexFile": true,
+  "enumArray": true
+}
