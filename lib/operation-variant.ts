@@ -79,7 +79,8 @@ export class OperationVariant extends GenType implements Importable {
     this.updateImports();
   }
 
-  private inferResponseType(successResponse: Content, operation: Operation, { customizedResponseType = {} }: Pick<Options, 'customizedResponseType'>): string {
+  private inferResponseType(successResponse: Content, operation: Operation, options: Options): string {
+    const customizedResponseType = options.customizedResponseType || {};
     const customizedResponseTypeByPath = customizedResponseType[operation.path];
     if (customizedResponseTypeByPath) {
       return customizedResponseTypeByPath.toUse;

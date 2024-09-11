@@ -5,16 +5,18 @@ import fs from 'fs-extra';
 import os from 'os';
 import path from 'path';
 import { parseOptions } from './cmd-args';
+import { FunctionIndex } from './function-index';
 import { HTTP_METHODS, deleteDirRecursive, methodName, simpleName, syncDirs } from './gen-utils';
 import { Globals } from './globals';
 import { HandlebarsManager } from './handlebars-manager';
 import { Logger } from './logger';
 import { Model } from './model';
+import { ModelIndex } from './model-index';
 import { Operation } from './operation';
+import { OperationVariant } from './operation-variant';
 import { Options } from './options';
 import { Service } from './service';
 import { Templates } from './templates';
-import { ModelIndex } from './model-index';
 
 /**
  * Main generator class
@@ -86,11 +88,13 @@ export class NgOpenApiGen {
       // Generate each service and function
       const generateServices = this.options.services ?? true;
       const services = [...this.services.values()];
+      const operationVariants: Array<{ service: string; operations: OperationVariant[] }> = [];
       for (const service of services) {
         if (generateServices) {
           this.write('service', service, service.fileName, 'services');
         }
         for (const op of service.operations) {
+          operationVariants.push({ service: service.fileName, operations: op.variants });
           for (const variant of op.variants) {
             this.write('fn', variant, variant.importFile, variant.importPath);
           }
@@ -121,11 +125,17 @@ export class NgOpenApiGen {
       if (this.globals.modelIndexFile) {
         this.write('modelIndex', { ...general, modelIndex }, this.globals.modelIndexFile);
       }
+      const functionIndex = this.globals.functionIndexFile || this.options.indexFile ? new FunctionIndex(operationVariants, this.options) : null;
+      if (this.globals.functionIndexFile) {
+        this.write('functionIndex', { ...general, functionIndex }, this.globals.functionIndexFile);
+      }
       if (generateServices && this.globals.serviceIndexFile) {
         this.write('serviceIndex', general, this.globals.serviceIndexFile);
       }
       if (this.options.indexFile) {
-        this.write('index', { ...general, modelIndex }, 'index');
+        this.write('index', {
+          ...general, modelIndexFile: this.globals.modelIndexFile, functionIndexFile: this.globals.functionIndexFile, serviceIndexFile: this.globals.serviceIndexFile
+        }, 'index');
       }
 
       // Now synchronize the temp to the output folder

@@ -31,5 +31,6 @@
   "serviceSuffix": "Service",
   "serviceIndex": false,
   "modelIndex": false,
+  "functionIndex": false,
   "indexFile": true
 }

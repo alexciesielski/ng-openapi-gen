@@ -32,6 +32,9 @@ export interface Options {
   /** Typescript file, without '.ts' extension that exports all services. Set to false to skip. Defaults to `services`. */
   serviceIndex?: string | boolean;
 
+  /** Typescript file, without '.ts' extension that exports all functions. Set to false to skip. Defaults to `functions`. */
+  functionIndex?: string | boolean;
+
   /** When true, an 'index.ts' file will be generated, exporting all generated files */
   indexFile?: boolean;
 

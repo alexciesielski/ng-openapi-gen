@@ -1,6 +1,6 @@
 {
   "name": "@alexciesielski/ng-openapi-gen",
-  "version": "0.51.2",
+  "version": "0.51.3",
   "license": "MIT",
   "author": "Alexander Ciesielski",
   "description": "An OpenAPI 3 codegen for Angular 17+",

@@ -21,6 +21,7 @@ export class Globals {
   moduleFile?: string;
   modelIndexFile?: string;
   serviceIndexFile?: string;
+  functionIndexFile?: string;
   rootUrl?: string;
 
   constructor(options: Options) {
@@ -47,6 +48,9 @@ export class Globals {
     }
     if (options.serviceIndex !== false && options.serviceIndex !== '') {
       this.serviceIndexFile = options.serviceIndex === true || options.serviceIndex === undefined ? 'services' : options.serviceIndex;
+    }
+    if (options.functionIndex !== false && options.functionIndex !== '') {
+      this.functionIndexFile = options.functionIndex === true || options.functionIndex === undefined ? 'functions' : options.functionIndex;
     }
     if (options.modelIndex !== false && options.modelIndex !== '') {
       this.modelIndexFile = options.modelIndex === true || options.modelIndex === undefined ? 'models' : options.modelIndex;

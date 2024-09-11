@@ -3,7 +3,16 @@ export { {{baseServiceClass}} } from './{{{baseServiceFile}}}';
 export { {{requestBuilderClass}} } from './{{{requestBuilderFile}}}';
 export { {{responseClass}} } from './{{{responseFile}}}';
 export { {{moduleClass}} } from './{{{moduleFile}}}';
-{{#modelIndex.imports}}export { {{{typeName}}}{{#useAlias}} as {{{qualifiedName}}}{{/useAlias}} } from './models{{{file}}}';
+
+{{!-- {{#modelIndex.imports}}export { {{{typeName}}}{{#useAlias}} as {{{qualifiedName}}}{{/useAlias}} } from './models{{{file}}}';
 {{/modelIndex.imports}}
+
+{{#functionIndex.imports}}export { {{{typeName}}}{{#useAlias}} as {{{qualifiedName}}}{{/useAlias}} } from './models{{{file}}}';
+{{/modelIndex.imports}}
+
 {{#services}}export { {{typeName}} } from './services/{{{fileName}}}';
-{{/services}}
+{{/services}} --}}
+
+{{#if modelIndexFile}}export * from './{{modelIndexFile}}';{{/if}}
+{{#if functionIndexFile}}export * from './{{functionIndexFile}}';{{/if}}
+{{#if serviceIndexFile}}export * from './{{serviceIndexFile}}';{{/if}}
